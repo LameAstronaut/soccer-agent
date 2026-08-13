@@ -20,12 +20,15 @@ def calculate_features(df):
     away_df= df[['match_id','away_team','away_goals']]
     away_df = away_df.rename(columns = {'away_team': 'team','away_goals':'goals'})
 
+
     combined = pd.concat([home_df,away_df]).sort_values(by=['team','match_id'])
     
     combined['goals_before_match'] = combined.groupby('team')['goals'].transform(lambda x: x.cumsum().shift(1)).fillna(0)
 
     combined['rolling_avg_goals'] = combined.groupby('team')['goals'].transform(lambda x: x.shift(1).rolling(window=3,min_periods=1).mean()).fillna(0).round(2)
+
     
+
     return combined
 
 

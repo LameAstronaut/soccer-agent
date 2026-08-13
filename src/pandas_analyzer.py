@@ -32,7 +32,7 @@ def calculate_points(df):
 
     df3 = pd.concat([df1,df2]).groupby('team')['pts'].sum().sort_values(ascending=False)
 
-    print(df3)
+    return df3
 
 def print_summary(df):
     print(match_count(df))
@@ -43,5 +43,4 @@ def print_summary(df):
 if __name__ == '__main__':
     df = pd.read_csv("../data/matches.csv")
     print_summary(df)
-    calculate_points(df)
-    
+    print(calculate_points(df))
